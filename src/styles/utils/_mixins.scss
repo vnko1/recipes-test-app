@@ -1,0 +1,7 @@
+@mixin animation(
+  $duration: var(--transition-duration),
+  $type: all,
+  $property: ease-in-out
+) {
+  transition: $type $duration $property;
+}
