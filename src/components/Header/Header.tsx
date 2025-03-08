@@ -12,6 +12,7 @@ import {
   Typography,
   Button,
   Toolbar,
+  Link,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -26,9 +27,13 @@ const Header: React.FC = () => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Link
+        href="/"
+        variant="h6"
+        sx={{ my: 2, color: "currentcolor", textDecoration: "none" }}
+      >
         RECIPES
-      </Typography>
+      </Link>
       <Divider />
       <List>
         {navItems.map(({ title, href }) => (
@@ -58,13 +63,18 @@ const Header: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
+          <Link
             variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            href="/"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              color: "currentcolor",
+              textDecoration: "none",
+            }}
           >
             RECIPES
-          </Typography>
+          </Link>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map(({ title, href }) => (
               <Button

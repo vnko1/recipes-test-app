@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Placeholder.module.scss";
+import styles from "./Placeholder.module.css";
 
 interface Props {
   text?: string;
