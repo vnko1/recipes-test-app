@@ -1,15 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { Provider } from "react-redux";
 
-import { recipesApi } from "./redux";
+import { store } from "./redux";
 import { App } from "./containers";
 import "./styles/index.scss";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ApiProvider api={recipesApi}>
+    <Provider store={store}>
       <App />
-    </ApiProvider>
+    </Provider>
   </StrictMode>
 );

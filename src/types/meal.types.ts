@@ -1,5 +1,6 @@
 export interface IMeal {
   idMeal: string;
+  strMeal: string;
   strDrinkAlternate: null | string;
   strCategory: string;
   strArea: string;
