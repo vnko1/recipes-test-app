@@ -24,8 +24,15 @@ interface Props extends IMeal {
 }
 
 const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
-  const { strCategory, strMealThumb, strArea, strMeal, idMeal, strSource } =
-    cardProps;
+  const {
+    strCategory,
+    strMealThumb,
+    strArea,
+    strMeal,
+    idMeal,
+    strSource,
+    strInstructions,
+  } = cardProps;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favoritesCards = useFavoritesSelector((state) => state.favorites);
@@ -59,19 +66,27 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
           image={strMealThumb}
           alt={strCategory}
         />
-        <CardContent>
+        <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Typography gutterBottom variant="h5" component="div">
             {strMeal}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {strArea}
+            Region: {strArea}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {strCategory}
+            Category: {strCategory}
           </Typography>
           {isFavoriteCard ? (
+            <>
+              <Typography>Instruction:</Typography>
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                {strInstructions}
+              </Typography>
+            </>
+          ) : null}
+          {isFavoriteCard ? (
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              Ingredients: {totalIngredients}
+              Total ingredients: {totalIngredients}
             </Typography>
           ) : null}
           {isFavoriteCard ? (
