@@ -48,7 +48,11 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
   };
   return (
     <Card sx={{ maxWidth: 800 }}>
-      <CardActionArea onClick={() => navigate("recipes/" + idMeal)}>
+      <CardActionArea
+        onClick={() => {
+          if (!isFavoriteCard) navigate("recipes/" + idMeal);
+        }}
+      >
         <CardMedia
           component="img"
           height="140"
@@ -70,7 +74,11 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
               Ingredients: {totalIngredients}
             </Typography>
           ) : null}
-          {isFavoriteCard ? <Link href={strSource}>Instruction</Link> : null}
+          {isFavoriteCard ? (
+            <Link href={strSource} target="_blank" rel="noreferrer noopener">
+              Instruction
+            </Link>
+          ) : null}
         </CardContent>
       </CardActionArea>
       {isFavorite ? (
