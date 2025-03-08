@@ -55,5 +55,5 @@ export interface IMeal {
 }
 
 export interface IRecipes {
-  meals: Array<IMeal> | null;
+  meals: Array<IMeal>;
 }
