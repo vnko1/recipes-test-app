@@ -2,14 +2,8 @@ import React, { useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 import { useGetMealsQuery } from "../../redux";
-import {
-  Categories,
-  SearchInput,
-  CardsList,
-  RecipePreview,
-  CustomPagination,
-  Placeholder,
-} from "../../components";
+import { Categories, SearchInput, CustomPagination } from "../../components";
+import { Cards } from "./components";
 
 const itemsPerPage = 2;
 
@@ -21,34 +15,26 @@ const HomePage: React.FC = () => {
 
   const response = useGetMealsQuery(recipeName);
 
-  const filteredRecipes = useMemo(() => {
+  const recipes = useMemo(() => {
     return response.data?.meals?.filter(
       (meal) => !category || meal.strCategory === category
     );
   }, [category, response.data?.meals]);
 
-  const total = Math.max(
-    1,
-    Math.ceil((filteredRecipes?.length || 0) / itemsPerPage)
-  );
+  const total = Math.max(1, Math.ceil((recipes?.length || 0) / itemsPerPage));
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-  const recipes = filteredRecipes?.slice(startIndex, endIndex);
 
   return (
     <section>
       <SearchInput />
       <Categories />
-      {recipes?.length ? (
-        <CardsList>
-          {recipes.map((meal) => (
-            <RecipePreview key={meal.idMeal} {...meal} />
-          ))}
-        </CardsList>
-      ) : (
-        <Placeholder />
-      )}
+      <Cards
+        recipes={recipes || []}
+        start={startIndex}
+        end={endIndex}
+        {...response}
+      />
       <CustomPagination count={total} page={currentPage} />
     </section>
   );

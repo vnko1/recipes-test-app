@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import {
@@ -15,7 +15,7 @@ import { IMeal } from "../../../types";
 import {
   addToFavorites,
   deleteFromFavorites,
-  useFavoritesSelector,
+  useAppSelector,
 } from "../../../redux";
 
 interface Props extends IMeal {
@@ -23,31 +23,32 @@ interface Props extends IMeal {
   isFavoriteCard?: boolean;
 }
 
-const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
-  const {
-    strCategory,
-    strMealThumb,
-    strArea,
-    strMeal,
-    idMeal,
-    strSource,
-    strInstructions,
-  } = cardProps;
+const RecipePreview: React.FC<Props> = ({
+  isFavoriteCard,
+  strCategory,
+  strMealThumb,
+  strArea,
+  strMeal,
+  idMeal,
+  strSource,
+  strInstructions,
+  ...cardProps
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const favoritesCards = useFavoritesSelector((state) => state.favorites);
-  const isFavorite = favoritesCards.some((card) => card.idMeal === idMeal);
+  const favorites = useAppSelector((state) => state.favorites.favorites);
 
-  const totalIngredients = useMemo(() => {
-    if (isFavoriteCard)
-      return Object.entries(cardProps).reduce((acc, [key, value]) => {
+  const isFavorite = favorites.some((id) => id === idMeal);
+
+  const totalIngredients = isFavoriteCard
+    ? Object.entries(cardProps).reduce((acc, [key, value]) => {
         if (key.startsWith("strIngredient") && value) return (acc += 1);
         return acc;
-      }, 0);
-  }, [cardProps, isFavoriteCard]);
+      }, 0)
+    : undefined;
 
   const handleAddToFavorite = () => {
-    dispatch(addToFavorites(cardProps));
+    dispatch(addToFavorites(idMeal));
   };
 
   const handleRemoveFromFavorite = () => {

@@ -1,21 +1,14 @@
 import React from "react";
-import { useFavoritesSelector } from "../../redux";
-import { CardsList, Placeholder, RecipePreview } from "../../components";
+import { useGetMealsQuery } from "../../redux";
+
+import { Cards } from "./components";
 
 const FavoritesPage: React.FC = () => {
-  const cards = useFavoritesSelector((state) => state.favorites);
+  const response = useGetMealsQuery("");
 
   return (
     <section>
-      {cards.length ? (
-        <CardsList>
-          {cards.map((meal) => (
-            <RecipePreview key={meal.idMeal} {...meal} isFavoriteCard />
-          ))}
-        </CardsList>
-      ) : (
-        <Placeholder text="Empty!" />
-      )}
+      <Cards recipes={response.data?.meals || []} {...response} />
     </section>
   );
 };
