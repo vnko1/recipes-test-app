@@ -4,7 +4,7 @@ import { ApiProvider } from "@reduxjs/toolkit/query/react";
 
 import { recipesApi } from "./redux";
 import { App } from "./containers";
-import "./styles/index.css";
+import "./styles/index.scss";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
