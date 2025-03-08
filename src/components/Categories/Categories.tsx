@@ -21,7 +21,11 @@ const Categories: React.FC = () => {
     setSearchParams(params);
   };
   return (
-    <Stack direction="row" spacing={1} sx={{ p: 2, flexWrap: "wrap" }}>
+    <Stack
+      direction="row"
+      spacing={1}
+      sx={{ p: 2, flexWrap: "wrap", justifyContent: "center" }}
+    >
       <Chip
         label={"All"}
         onClick={() => onHandleClick("")}
