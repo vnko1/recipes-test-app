@@ -1,5 +1,4 @@
-import { favoritesReducer } from "./favoriteSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
-type FavoriteState = ReturnType<typeof favoritesReducer>;
-
-export const selectFavorites = (state: FavoriteState) => state;
+export const useFavoritesSelector = useSelector.withTypes<RootState>();

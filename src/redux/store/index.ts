@@ -11,4 +11,4 @@ export const store = configureStore({
     getDefaultMiddleware().concat(recipesApi.middleware),
 });
 
-export type FavoriteState = ReturnType<typeof favoritesReducer>;
+export type RootState = ReturnType<typeof store.getState>;
