@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import {
   AppBar,
   Box,
@@ -18,6 +18,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { navItems, drawerWidth } from "../../utils";
 
 const Header: React.FC = () => {
+  const { pathname } = useLocation();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
   const handleDrawerToggle = () => setMobileOpen((prevState) => !prevState);
@@ -38,7 +40,7 @@ const Header: React.FC = () => {
         {navItems.map(({ title, href }) => (
           <ListItem key={title} disablePadding>
             <Button
-              sx={{ textAlign: "center", color: "currentColor" }}
+              sx={{ color: pathname === href ? "orange" : "currentColor" }}
               onClick={() => handleNavClick(href)}
             >
               <ListItemText primary={title} />
@@ -78,7 +80,7 @@ const Header: React.FC = () => {
             {navItems.map(({ title, href }) => (
               <Button
                 key={title}
-                sx={{ color: "currentColor" }}
+                sx={{ color: pathname === href ? "orange" : "currentColor" }}
                 onClick={() => handleNavClick(href)}
               >
                 {title}
