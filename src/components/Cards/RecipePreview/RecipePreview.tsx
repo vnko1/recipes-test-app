@@ -5,6 +5,7 @@ import {
   CardMedia,
   Typography,
   CardActionArea,
+  Button,
 } from "@mui/material";
 
 import { IMeal } from "../../../types";
@@ -47,6 +48,7 @@ const RecipePreview: React.FC<Props> = ({
           </Typography>
         </CardContent>
       </CardActionArea>
+      <Button>Add</Button>
     </Card>
   );
 };
