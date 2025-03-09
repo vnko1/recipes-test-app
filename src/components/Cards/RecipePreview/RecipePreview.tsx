@@ -15,7 +15,7 @@ import { IMeal } from "../../../types";
 import {
   addToFavorites,
   deleteFromFavorites,
-  useFavoritesSelector,
+  useAppSelector,
 } from "../../../redux";
 
 interface Props extends IMeal {
@@ -35,7 +35,7 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
   } = cardProps;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const favoritesCards = useFavoritesSelector((state) => state.favorites);
+  const favoritesCards = useAppSelector((state) => state.favorites);
   const isFavorite = favoritesCards.some((card) => card.idMeal === idMeal);
 
   const totalIngredients = useMemo(() => {
