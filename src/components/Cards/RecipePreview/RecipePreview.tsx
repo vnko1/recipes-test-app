@@ -16,6 +16,7 @@ import {
   addToFavorites,
   deleteFromFavorites,
   useAppSelector,
+  usePrefetch,
 } from "../../../redux";
 
 interface Props extends IMeal {
@@ -33,6 +34,7 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
     strSource,
     strInstructions,
   } = cardProps;
+  const prefetchPage = usePrefetch("getMeal");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favoritesCards = useAppSelector((state) => state.favorites);
@@ -56,8 +58,16 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
   return (
     <Card sx={{ maxWidth: 800 }}>
       <CardActionArea
+        onMouseEnter={() => {
+          // if (!isFavoriteCard) {
+          //   prefetchPage(idMeal);
+          // }
+        }}
         onClick={() => {
-          if (!isFavoriteCard) navigate("recipes/" + idMeal);
+          if (!isFavoriteCard) {
+            prefetchPage(idMeal);
+            navigate("recipes/" + idMeal);
+          }
         }}
       >
         <CardMedia

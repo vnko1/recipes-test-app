@@ -16,10 +16,10 @@ const HomePage: React.FC = () => {
   const response = useGetMealsQuery(recipeName);
 
   const recipes = useMemo(() => {
-    return response.data?.meals?.filter(
+    return response.data?.filter(
       (meal) => !category || meal.strCategory === category
     );
-  }, [category, response.data?.meals]);
+  }, [category, response.data]);
 
   const total = Math.max(1, Math.ceil((recipes?.length || 0) / itemsPerPage));
   const startIndex = (currentPage - 1) * itemsPerPage;

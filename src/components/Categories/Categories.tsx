@@ -5,7 +5,7 @@ import { Chip, Stack } from "@mui/material";
 import { useGetCategoriesQuery } from "../../redux";
 
 const Categories: React.FC = () => {
-  const { data } = useGetCategoriesQuery(null);
+  const { data } = useGetCategoriesQuery();
   const [searchParams, setSearchParams] = useSearchParams();
   const currentCategory = searchParams.get("c")?.toString();
 
@@ -20,6 +20,8 @@ const Categories: React.FC = () => {
     }
     setSearchParams(params);
   };
+
+  if (!data) return null;
   return (
     <Stack
       direction="row"
@@ -31,7 +33,7 @@ const Categories: React.FC = () => {
         onClick={() => onHandleClick("")}
         color={!currentCategory ? "primary" : "default"}
       />
-      {data?.categories.map((category) => (
+      {data.map((category) => (
         <Chip
           color={
             currentCategory === category.strCategory ? "primary" : "default"
