@@ -1,5 +1,6 @@
 import React from "react";
-import { useAppSelector } from "../../redux";
+
+import { useAppSelector } from "../../hooks";
 import { Cards } from "./components";
 
 const FavoritesPage: React.FC = () => {

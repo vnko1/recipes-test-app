@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+
 import {
   Card,
   CardContent,
@@ -15,9 +15,9 @@ import { IMeal } from "../../../types";
 import {
   addToFavorites,
   deleteFromFavorites,
-  useAppSelector,
   usePrefetch,
 } from "../../../redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 
 interface Props extends IMeal {
   classNames?: string;
@@ -36,7 +36,7 @@ const RecipePreview: React.FC<Props> = ({ isFavoriteCard, ...cardProps }) => {
   } = cardProps;
   const prefetchPage = usePrefetch("getMeal");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const favoritesCards = useAppSelector((state) => state.favorites);
   const isFavorite = favoritesCards.some((card) => card.idMeal === idMeal);
 
