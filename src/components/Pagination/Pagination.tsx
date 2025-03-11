@@ -1,20 +1,14 @@
 import React from "react";
-import { useSearchParams } from "react-router";
+
 import { Pagination, Stack } from "@mui/material";
+import { usePagination } from "../../hooks";
 
 interface Props {
   count: number;
-  page: number;
 }
 
-const CustomPagination: React.FC<Props> = ({ count, page }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const onHandleChange = (_: unknown, value: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("p", value.toString());
-    setSearchParams(params);
-  };
+const CustomPagination: React.FC<Props> = ({ count }) => {
+  const [page, setPage] = usePagination();
 
   if (count < 2) return null;
 
@@ -24,8 +18,8 @@ const CustomPagination: React.FC<Props> = ({ count, page }) => {
         count={count}
         variant="outlined"
         shape="rounded"
-        onChange={onHandleChange}
-        page={page || 1}
+        onChange={(_, value) => setPage(value)}
+        page={page}
       />
     </Stack>
   );

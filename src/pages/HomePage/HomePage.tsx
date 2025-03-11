@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
         end={endIndex}
         {...response}
       />
-      <CustomPagination count={total} page={currentPage} />
+      <CustomPagination count={total} />
     </section>
   );
 };
