@@ -1,11 +1,16 @@
 import React from "react";
 import { useSearchParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Chip, Stack } from "@mui/material";
 
-import { useGetCategoriesQuery } from "../../redux";
+import { recipesApi } from "../../api";
 
 const Categories: React.FC = () => {
-  const { data } = useGetCategoriesQuery(null);
+  const { data } = useQuery({
+    queryKey: ["categories"],
+    queryFn: recipesApi.getCategories,
+  });
+
   const [searchParams, setSearchParams] = useSearchParams();
   const currentCategory = searchParams.get("c")?.toString();
 
@@ -31,7 +36,7 @@ const Categories: React.FC = () => {
         onClick={() => onHandleClick("")}
         color={!currentCategory ? "primary" : "default"}
       />
-      {data?.categories.map((category) => (
+      {data?.data.categories.map((category) => (
         <Chip
           color={
             currentCategory === category.strCategory ? "primary" : "default"

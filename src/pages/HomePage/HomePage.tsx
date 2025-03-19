@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
-import { useGetMealsQuery } from "../../redux";
+import { recipesApi } from "../../api";
 import { Categories, SearchInput, CustomPagination } from "../../components";
 import { Cards } from "./components";
 
@@ -13,13 +14,16 @@ const HomePage: React.FC = () => {
   const category = searchParams.get("c")?.toString() || "";
   const currentPage = Math.max(Number(searchParams.get("p")) || 1, 1);
 
-  const response = useGetMealsQuery(recipeName);
+  const { data, isError, isFetching } = useQuery({
+    queryKey: ["meals", { recipeName }],
+    queryFn: () => recipesApi.getMeals(recipeName),
+  });
 
   const recipes = useMemo(() => {
-    return response.data?.meals?.filter(
+    return data?.data.meals?.filter(
       (meal) => !category || meal.strCategory === category
     );
-  }, [category, response.data?.meals]);
+  }, [category, data?.data.meals]);
 
   const total = Math.max(1, Math.ceil((recipes?.length || 0) / itemsPerPage));
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -33,7 +37,8 @@ const HomePage: React.FC = () => {
         recipes={recipes || []}
         start={startIndex}
         end={endIndex}
-        {...response}
+        isError={isError}
+        isFetching={isFetching}
       />
       <CustomPagination count={total} />
     </section>
