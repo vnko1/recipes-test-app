@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
   });
 
   const recipes = useMemo(() => {
-    return data?.data.meals.filter(
+    return data?.data.meals?.filter(
       (meal) => !category || meal.strCategory === category
     );
   }, [category, data?.data.meals]);
